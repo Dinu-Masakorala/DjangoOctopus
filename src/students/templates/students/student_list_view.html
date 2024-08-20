@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        td {
+            word-wrap: break-word; /* Allows content to break into the next line */
+        }
+
+        thead {
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            overflow-x: auto; /* Enables horizontal scrolling */
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 15px;
+            color: #131313;
+            text-decoration: none;
+            /* border: 1px solid #007bff; */
+            border-radius: 5px;
+            background-color: #b49cdd;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Summary Student List</h1>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Sydney Participant</th>
+                    <th>School</th>
+                    <th>Sydney Percentile</th>
+                    <th>Assessment Area</th>
+                    <th>Award</th>
+                    <th>Class</th>
+                    <th>Correct Answer Percentage (%)</th>
+                    <th>Correct Answer</th>
+                    <th>Participant</th>
+                    <th>Student Score</th>
+                    <th>Subject</th>
+                    <th>Category ID</th>
+                    <th>Year Level Name</th>
+                    <th>Answer</th>
+                    <th>Correct Answer ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.student_name }}</td>
+                        <td>{{ student.sydney_participant }}</td>
+                        <td>{{ student.school }}</td>
+                        <td>{{ student.sydney_percentile }}</td>
+                        <td>{{ student.assessment_area.name }}</td>
+                        <td>{{ student.award.title }}</td>
+                        <td>{{ student.class_name.name }}</td>
+                        <td>{{ student.correct_answer_percentage_per_class }}</td>
+                        <td>{{ student.correct_answer }}</td>
+                        <td>{{ student.participant }}</td>
+                        <td>{{ student.student_score }}</td>
+                        <td>{{ student.subject.name }}</td>
+                        <td>{{ student.category_id }}</td>
+                        <td>{{ student.year_level_name }}</td>
+                        <td>{{ student.answer.content }}</td>
+                        <td>{{ student.correct_answer_id }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="15">No students found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="{% url 'student_create' %}">Add New Summary Student</a>
+</body>
+
+{% endblock %}
